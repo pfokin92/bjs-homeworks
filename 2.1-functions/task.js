@@ -49,6 +49,10 @@ function getAverageScore(data) {
         dataNew[subject] = averageOfSubject;
 
     }
+    if (countGeneral == 0) {
+        dataNew.average = averageGeneral;
+        return dataNew;
+    }
     averageGeneral = sumGeneral / countGeneral;
     dataNew.average = averageGeneral;
     return dataNew;
@@ -62,6 +66,9 @@ function getAverageMark(marks) {
     for (values of marks) {
         count++;
         sum = sum + values;
+    }
+    if (count == 0) {
+        return average;
     }
     average = sum / count;
     return average;
