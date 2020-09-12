@@ -35,29 +35,29 @@ class Magazine extends PrintEditionItem {
   }
 }
 
-class book extends PrintEditionItem {
+class Book extends PrintEditionItem {
   constructor(author, name, releaseDate, pageCount, state) {
     super(name, releaseDate, pageCount, state);
     this.author = author;
-    this.type = "book";
+    this.type = "Book";
   }
 }
 
-class NovelBook extends book {
+class NovelBook extends Book {
   constructor(author, name, releaseDate, pageCount, state) {
     super(author, name, releaseDate, pageCount, state);
     this.type = "novel";
   }
 }
 
-class FantasticBook extends book {
+class FantasticBook extends Book {
   constructor(author, name, releaseDate, pageCount, state) {
     super(author, name, releaseDate, pageCount, state);
     this.type = "fantastic";
   }
 }
 
-class DetectiveBook extends book {
+class DetectiveBook extends Book {
   constructor(author, name, releaseDate, pageCount, state) {
     super(author, name, releaseDate, pageCount, state);
     this.type = "detective";
@@ -128,7 +128,8 @@ class Library {
     if (indexBook > -1) {
       this.books.splice(indexBook, 1);
     }
-    return this.books;
+    return book
+    ;
   }
 }
 const library = new Library("Библиотека имени Ленина");
