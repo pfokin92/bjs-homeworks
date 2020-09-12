@@ -128,8 +128,7 @@ class Library {
     if (indexBook > -1) {
       this.books.splice(indexBook, 1);
     }
-    return book
-    ;
+    return book;
   }
 }
 const library = new Library("Библиотека имени Ленина");
@@ -166,7 +165,7 @@ class StudentLog {
     this.name = name;
     this.subjectsList = {};
   }
-  get getName() {
+  getName() {
     return this.name;
   }
   addGrade(grade, subject) {
@@ -225,7 +224,7 @@ class StudentLog {
   }
 }
 const student = new StudentLog("Олег Никифоров");
-console.log(student.getName);
+console.log(student.getName());
 student.addGrade(3, "algebra");
 student.addGrade(5, "algebra");
 student.addGrade(3, "geometry");
