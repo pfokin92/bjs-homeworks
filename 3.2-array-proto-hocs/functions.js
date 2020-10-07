@@ -22,9 +22,9 @@ function hasReliableWeapons(durability) {
 }
 
 function getReliableWeaponsNames(durability) {
-  /*const weaponsMoreDurability = weapons.filter(
+  const weaponsMoreDurability = weapons.filter(
     (weapon) => weapon.durability > durability
-  );*/
+  );
   return weapons.filter(
     (weapon) => weapon.durability > durability
   ).map((weapon) => weapon.name);
@@ -64,73 +64,59 @@ function sleep(milliseconds) {
   while (new Date().getTime() <= e) {}
 }
 
-function sum() {
+function sum(...thisArgs) {
   sleep(500);
-  const args = arguments[0];
-  return args.reduce((sum, arg) => sum += arg, 0);
+  return thisArgs.reduce((sum, arg) => sum += arg, 0);
 }
 
 function compareArrays(a1, a2) {
   return a1.length == a2.length && a1.every((v, i) => v === a2[i]);
 }
+// function getMemory(...thisArgs) {
+//   let cell = {};
+//   const find = memory.find(element => compareArrays(element.args, thisArgs));
+//   if (find===undefined){
+//       cell.args = thisArgs;
+//       cell.result = fn (thisArgs)
+//       memory.push(cell);
+//   }
 
-let memory = [];
-
-
-
-function getMemorySum() {
-  let arg = [];
-  let cell = {};
-  let result;
-  if (arguments.length > 1) {
-    for (let i = 0; i < arguments.length; i++) {
-      if (typeof arguments[i] === "number") {
-        arg[i] = arguments[i];
-      } else if (typeof arguments[i] === "object") {
-        let lengthArgs = arg.length;
-        for (let j = 0; j < arguments[i].length; j++) {
-          arg[j + lengthArgs] = arguments[i][j];
-        }
-      }
-    }
-  } else if (typeof arguments[0] === "number" && arguments.length === 1) {
-    arg[0] = arguments[0];
-  } else {
-    arg = arguments[0];
-  }
-  if (memory.some(cell => compareArrays(arg, cell.args))) {
-    return memory.find(cell => compareArrays(arg, cell.args)).result;
-  } else {
-    result = sum(arg);
-    cell.args = arg;
-    cell.result = result;
-    memory.push(cell);
-  }
-  //console.log(memory);
-
-  return cell.result;
-}
+// }
 
 
 function memorize(fn, limit) {
-  if (limit < memory.length) {
-    memory.shift()
+  const memory = [];
+
+  return function (...thisArgs) {
+    let cell = {};
+    let find = memory.find(element => compareArrays(element.args, thisArgs));
+    if (find === undefined) {
+      cell.args = thisArgs;
+      cell.result = fn(...thisArgs)
+      if (memory.length < limit) {
+        memory.push(cell);
+      }
+      find = cell
+    };
+    return find.result
   }
-  return getMemorySum;
 }
 
 
 const mSum = memorize(sum, 5);
 
-console.log(typeof mSum)
+
+console.log(sum(2, 3, 4))
 
 
-console.log(mSum([8, 1, 2]))
-console.log(mSum([8, 1, 3]))
-console.log(mSum([8, 1, 2]))
-console.log(mSum([8, 1, 4]))
-console.log(mSum([8, 1, 5]))
-console.log(mSum([8, 1, 4]))
+
+console.log(mSum(8, 1, 2))
+console.log(mSum(8, 1, 3))
+console.log(mSum(8, 1, 2))
+console.log(mSum(8, 1, 4))
+console.log(mSum(8, 1, 5))
+console.log(mSum(8, 1, 4))
+console.log(mSum(8, 1, 6))
 
 //console.log(sum(8));
 //console.log(sum([8, 1, 2], [8, 1, 2]));
