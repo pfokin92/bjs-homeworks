@@ -90,15 +90,17 @@ function memorize(fn, limit) {
   return function (...thisArgs) {
     let cell = {};
     let find = memory.find(element => compareArrays(element.args, thisArgs));
-    if (find === undefined) {
-      cell.args = thisArgs;
-      cell.result = fn(...thisArgs)
-      if (memory.length < limit) {
-        memory.push(cell);
-      }
-      find = cell
+    if (find != undefined) {
+      return find.result;
     };
-    return find.result
+    cell.args = thisArgs;
+    cell.result = fn(...thisArgs)
+    if (memory.length >= limit) {
+      memory.shift();
+    }
+    memory.push(cell);
+    console.log(memory)
+    return cell.result;
   }
 }
 
