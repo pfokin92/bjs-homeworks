@@ -28,13 +28,18 @@ class AlarmClock{
     }
     getCurrentFormattedTime(){
         const now = new Date();
+        if(now.getMinutes()<10){
+            return `${now.getHours()}:0${now.getMinutes()}`;
+        }
         return `${now.getHours()}:${now.getMinutes()}`;
     }
     start(){
-        this.identifier = setInterval(()=>{
-            return this.alarmCollection.forEach(element => this.checkClock(element.time, element.callback))
+        if(!this.identifier){
+            this.identifier = setInterval(()=>{
+                return this.alarmCollection.forEach(element => this.checkClock(element.time, element.callback))
+            }
+                ,60000);
         }
-            ,60000);
         
     }
     checkClock(time, callback){
@@ -45,7 +50,6 @@ class AlarmClock{
     }
     stop(){
         clearInterval(this.identifier);
-
     }
     printAlarms(){
         console.log(`Печать всех будильников в количестве:${this.alarmCollection.length}`)
@@ -61,19 +65,21 @@ class AlarmClock{
 
 let phoneAlarm = new AlarmClock();
 
-phoneAlarm.addClock("11:16", ()=> console.log("Пора вставать"),1);
-phoneAlarm.addClock("11:14", ()=> console.log("Вставай, а то проспишь!"),2);
-phoneAlarm.addClock("11:15", ()=> console.log("Давай, вствай уже!"),3);
-phoneAlarm.addClock("11:13", ()=> console.log("Да ты задрал уже!"),4);
-phoneAlarm.addClock("11:11", ()=> console.log("Подъем!"),5);
-phoneAlarm.addClock("11:10", ()=> console.log("Я верю в тебя!"),6);
-phoneAlarm.addClock("11:12", ()=> console.log("Вставай!"),7);
-phoneAlarm.addClock("11:09", ()=> console.log("Вставай!"),8);
+console.log(phoneAlarm.getCurrentFormattedTime())
 
+
+phoneAlarm.addClock("19:01", ()=> console.log("Пора вставать"),1);
+phoneAlarm.addClock("19:02", ()=> console.log("Вставай, а то проспишь!"),2);
+phoneAlarm.addClock("19:03", ()=> console.log("Давай, вствай уже!"),3);
+phoneAlarm.addClock("19:04", ()=> console.log("Да ты задрал уже!"),4);
+phoneAlarm.addClock("19:05", ()=> console.log("Подъем!"),5);
+phoneAlarm.addClock("19:06", ()=> console.log("Я верю в тебя!"),6);
+phoneAlarm.addClock("19:07", ()=> console.log("Вставай!"),7);
+phoneAlarm.addClock("19:08", ()=> console.log("Вставай!"),8);
 
 phoneAlarm.printAlarms();
 
-console.log(phoneAlarm.alarmCollection);
+
 
 
 
@@ -86,16 +92,12 @@ phoneAlarm.removeClock(2);
 
 
 
-console.log(phoneAlarm.alarmCollection);
+
 
 
 phoneAlarm.start();
-//setTimeout(phoneAlarm.stop(), 15000)
-
-//phoneAlarm.clearAlarms();
-
-console.log(phoneAlarm.alarmCollection);
-
-phoneAlarm.checkClock("20:48", ()=>console.log("Hi world!"))
+setTimeout(phoneAlarm.stop, 12000);
+setTimeout(phoneAlarm.clearAlarms, 18000);
+// setTimeout(phoneAlarm.printAlarms, 19000);
 
 
