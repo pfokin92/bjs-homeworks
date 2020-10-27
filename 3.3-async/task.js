@@ -68,14 +68,14 @@ let phoneAlarm = new AlarmClock();
 console.log(phoneAlarm.getCurrentFormattedTime())
 
 
-phoneAlarm.addClock("19:11", ()=> console.log("Пора вставать"),1);
-phoneAlarm.addClock("19:12", ()=> console.log("Вставай, а то проспишь!"),2);
-phoneAlarm.addClock("19:13", ()=> console.log("Давай, вствай уже!"),3);
-phoneAlarm.addClock("19:14", ()=> console.log("Да ты задрал уже!"),4);
-phoneAlarm.addClock("19:15", ()=> console.log("Подъем!"),5);
-phoneAlarm.addClock("19:16", ()=> console.log("Я верю в тебя!"),6);
-phoneAlarm.addClock("19:17", ()=> console.log("Вставай!"),7);
-phoneAlarm.addClock("19:18", ()=> console.log("Вставай!"),8);
+phoneAlarm.addClock("19:21", ()=> console.log("Пора вставать"),1);
+phoneAlarm.addClock("19:22", ()=> console.log("Вставай, а то проспишь!"),2);
+phoneAlarm.addClock("19:23", ()=> console.log("Давай, вствай уже!"),3);
+phoneAlarm.addClock("19:24", ()=> console.log("Да ты задрал уже!"),4);
+phoneAlarm.addClock("19:25", ()=> console.log("Подъем!"),5);
+phoneAlarm.addClock("19:26", ()=> console.log("Я верю в тебя!"),6);
+phoneAlarm.addClock("19:27", ()=> console.log("Вставай!"),7);
+phoneAlarm.addClock("19:28", ()=> console.log("Вставай!"),8);
 
 phoneAlarm.printAlarms();
 
@@ -96,9 +96,13 @@ phoneAlarm.removeClock(2);
 
 
 phoneAlarm.start();
-setTimeout(phoneAlarm.stop, 12000);
-setTimeout(phoneAlarm.clearAlarms, 18000);
-phoneAlarm.stop()
-// setTimeout(phoneAlarm.printAlarms, 19000);
+
+
+setTimeout(()=>phoneAlarm.stop(), 120000);
+setTimeout(()=>phoneAlarm.clearAlarms(), 180000);
+
+setTimeout(()=>phoneAlarm.printAlarms(), 190000);
+
+
 
 
